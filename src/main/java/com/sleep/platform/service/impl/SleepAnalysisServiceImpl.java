@@ -1,5 +1,6 @@
 package com.sleep.platform.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -140,11 +141,25 @@ public class SleepAnalysisServiceImpl implements SleepAnalysisService {
         sessionEntity.setId(IdWorker.getId());
         sessionEntity.setUserId(request.getUserId());
         sessionEntity.setAnalysisDate(request.getAnalysisDate());
-        sessionEntity.setSourceType(SourceType.WATCH.name());
+        sessionEntity.setSourceType(selectAvailableSourceType(request));
         sessionEntity.setModelVersion(sleepAnalysisProperties.getCurrentModelVersion());
         sessionEntity.setRuleVersion(sleepAnalysisProperties.getCurrentRuleVersion());
         sleepRawSessionMapper.insert(sessionEntity);
         return sessionEntity.getId();
+    }
+
+    private String selectAvailableSourceType(SleepAnalysisRequest request) {
+        SourceType[] sourcePriority = {SourceType.WATCH, SourceType.MANUAL_IMPORT, SourceType.BAND};
+        for (SourceType sourceType : sourcePriority) {
+            Long existed = sleepRawSessionMapper.selectCount(new LambdaQueryWrapper<SleepRawSessionEntity>()
+                    .eq(SleepRawSessionEntity::getUserId, request.getUserId())
+                    .eq(SleepRawSessionEntity::getAnalysisDate, request.getAnalysisDate())
+                    .eq(SleepRawSessionEntity::getSourceType, sourceType.name()));
+            if (existed == null || existed == 0L) {
+                return sourceType.name();
+            }
+        }
+        return SourceType.MANUAL_IMPORT.name();
     }
 
     private void saveRawPhysiological(Long sessionId, List<PhysiologicalSegmentInput> physiologicalSegmentList) {
