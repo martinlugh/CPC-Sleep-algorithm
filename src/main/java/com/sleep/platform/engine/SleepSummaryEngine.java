@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -18,12 +19,13 @@ public class SleepSummaryEngine {
     public MainSleepSummaryResult summarize(List<SleepSegmentAnalysisResult> smoothedSegments,
                                             SleepOnsetDetectionResult onsetResult,
                                             WakeUpDetectionResult wakeUpResult) {
+        List<SleepSegmentAnalysisResult> safeSegments = smoothedSegments == null ? Collections.emptyList() : smoothedSegments;
         MainSleepSummaryResult summary = new MainSleepSummaryResult();
-        LocalDateTime start = onsetResult.getMainSleepStartTime();
-        LocalDateTime wake = wakeUpResult.getMainSleepWakeUpTime();
+        LocalDateTime start = onsetResult == null ? null : onsetResult.getMainSleepStartTime();
+        LocalDateTime wake = wakeUpResult == null ? null : wakeUpResult.getMainSleepWakeUpTime();
         summary.setMainSleepStartTime(start);
         summary.setMainSleepWakeUpTime(wake);
-        summary.setMainSleepLatencyMinutes(onsetResult.getMainSleepLatencyMinutes());
+        summary.setMainSleepLatencyMinutes(onsetResult == null ? null : onsetResult.getMainSleepLatencyMinutes());
 
         int deepMinutes = 0;
         int lightMinutes = 0;
@@ -32,8 +34,14 @@ public class SleepSummaryEngine {
         int awakenCount = 0;
         boolean inWakeBlock = false;
 
-        for (SleepSegmentAnalysisResult segment : smoothedSegments) {
-            if (segment.getSegmentStartTime().isBefore(start) || !segment.getSegmentStartTime().isBefore(wake)) {
+        for (SleepSegmentAnalysisResult segment : safeSegments) {
+            if (segment == null || segment.getSegmentStartTime() == null) {
+                continue;
+            }
+            if (start != null && segment.getSegmentStartTime().isBefore(start)) {
+                continue;
+            }
+            if (wake != null && !segment.getSegmentStartTime().isBefore(wake)) {
                 continue;
             }
             SleepStage stage = segment.getSmoothedStage();
@@ -56,7 +64,10 @@ public class SleepSummaryEngine {
         }
 
         int totalMinutes = deepMinutes + lightMinutes + remMinutes;
-        int windowMinutes = (start == null || wake == null) ? 5 : Math.max(5, (int) Duration.between(start, wake).toMinutes());
+        int observedWindowMinutes = totalMinutes + awakeMinutes;
+        int windowMinutes = (start != null && wake != null)
+                ? Math.max(5, (int) Duration.between(start, wake).toMinutes())
+                : Math.max(5, observedWindowMinutes);
         double efficiency = windowMinutes == 0 ? 0.0 : totalMinutes * 1.0 / windowMinutes;
 
         summary.setMainSleepDeepMinutes(deepMinutes);
