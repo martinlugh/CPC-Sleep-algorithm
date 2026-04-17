@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: sleep-analysis-system
+
+server:
+  port: 8080
+
+sleep:
+  analysis:
+    sample-rate-hz: 100
+    min-segment-seconds: 30
+    max-segment-seconds: 300
+    enable-baseline-adaptation: true
+    default-time-zone: "Asia/Shanghai"
