@@ -31,7 +31,7 @@ public class PowerSpectrumAnalyzer {
                 hf += power;
             }
         }
-        double ratio = hf == 0.0 ? 0.0 : lf / hf;
+        double ratio = lf == 0.0 ? 0.0 : hf / lf;
         return new SpectrumBandResult(vlf, lf, hf, total, ratio);
     }
 
