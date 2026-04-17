@@ -135,3 +135,37 @@ CREATE TABLE IF NOT EXISTS daytime_nap_result (
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     KEY idx_session_nap_time (session_id, nap_start_time)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS superpower_catalog (
+    id BIGINT PRIMARY KEY,
+    superpower_key VARCHAR(128) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(1024),
+    category VARCHAR(64) NOT NULL,
+    tier VARCHAR(32) NOT NULL DEFAULT 'FREE',
+    version VARCHAR(32) NOT NULL DEFAULT '1.0.0',
+    enabled TINYINT(1) NOT NULL DEFAULT 1,
+    config_schema_json JSON,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_superpower_key (superpower_key)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS user_installed_superpower (
+    id BIGINT PRIMARY KEY,
+    user_id VARCHAR(64) NOT NULL,
+    superpower_key VARCHAR(128) NOT NULL,
+    config_overrides_json JSON,
+    installed_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_user_superpower (user_id, superpower_key)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT IGNORE INTO superpower_catalog (id, superpower_key, name, description, category, tier, version) VALUES
+(1, 'advanced-hrv', 'Advanced HRV Analysis', 'Unlocks Poincaré plot analysis, SD1/SD2 metrics, and enhanced HRV statistics for deeper heart-rate-variability insights.', 'HRV_ANALYSIS', 'STANDARD', '1.0.0'),
+(2, 'respiratory-tracking', 'Respiratory Pattern Tracking', 'Derives respiratory rate from RRI data and overlays breathing patterns onto sleep stage classification.', 'RESPIRATORY_ANALYSIS', 'STANDARD', '1.0.0'),
+(3, 'circadian-optimization', 'Circadian Rhythm Optimization', 'Applies circadian prior adjustments to sleep stage probabilities, improving accuracy for shift workers and jet-lag recovery.', 'CIRCADIAN_RHYTHM', 'PREMIUM', '1.0.0'),
+(4, 'sample-entropy', 'Sample Entropy Analysis', 'Enables non-linear complexity analysis of RRI signals to distinguish REM from light sleep with higher precision.', 'HRV_ANALYSIS', 'PREMIUM', '1.0.0'),
+(5, 'cpc-analysis', 'Cardiopulmonary Coupling (CPC)', 'Full CPC engine: measures cardiorespiratory coupling strength, identifies stable NREM sleep bands, and detects sleep-disordered breathing patterns.', 'CARDIAC_ANALYSIS', 'PREMIUM', '1.0.0'),
+(6, 'daytime-nap-insights', 'Daytime Nap Insights', 'Detects, classifies, and scores daytime naps separately from the main sleep period.', 'SLEEP_DETECTION', 'STANDARD', '1.0.0'),
+(7, 'sleep-explainability', 'Sleep Score Explainability', 'Generates human-readable explanations and tags for every sleep stage decision and quality score.', 'SLEEP_INSIGHTS', 'FREE', '1.0.0');
