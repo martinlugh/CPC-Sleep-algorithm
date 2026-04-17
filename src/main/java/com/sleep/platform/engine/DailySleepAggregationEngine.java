@@ -23,7 +23,9 @@ public class DailySleepAggregationEngine {
             result.setDaytimeNapCount(0);
         }
         result.setDaytimeNapTotalMinutes(napTotal);
-        int mainTotal = mainSummary.getMainSleepTotalMinutes() == null ? 0 : mainSummary.getMainSleepTotalMinutes();
+        int mainTotal = (mainSummary == null || mainSummary.getMainSleepTotalMinutes() == null)
+                ? 0
+                : mainSummary.getMainSleepTotalMinutes();
         result.setDailyTotalSleepMinutes(mainTotal + napTotal);
         result.setNapResultList(daytimeNapResultList);
         return result;
