@@ -1,0 +1,38 @@
+{
+  "analysisId": "analysis-20260410-001",
+  "userId": "user-001",
+  "sleepSessionStartTime": "2026-04-10T22:00:00+08:00",
+  "sleepSessionEndTime": "2026-04-11T06:30:00+08:00",
+  "requestSourceSystem": "mobile-app",
+  "userSleepBaselineProfile": {
+    "userId": "user-001",
+    "baselineRestingHeartRate": 62.0,
+    "baselineRespirationRate": 14.0,
+    "baselineSpo2": 97.0,
+    "averageSleepLatencyMinutes": 18.0,
+    "averageTotalSleepMinutes": 430.0,
+    "habitualSleepStartClock": "22:30",
+    "habitualWakeUpClock": "06:30",
+    "profileTags": ["office-worker", "mild-stress"]
+  },
+  "sleepSegmentInputs": [
+    {
+      "segmentId": "seg-1",
+      "segmentStartTime": "2026-04-10T22:00:00+08:00",
+      "segmentEndTime": "2026-04-10T22:00:30+08:00",
+      "heartRateSeries": [64.2, 64.5, 64.1, 63.9, 64.0],
+      "respirationRateSeries": [14.0, 14.1, 14.0, 13.9, 14.0],
+      "bodyMovementSeries": [0.18, 0.15, 0.12, 0.10, 0.11],
+      "spo2Series": [97.0, 97.0, 96.9, 97.0, 97.1]
+    },
+    {
+      "segmentId": "seg-2",
+      "segmentStartTime": "2026-04-10T22:00:30+08:00",
+      "segmentEndTime": "2026-04-10T22:01:00+08:00",
+      "heartRateSeries": [63.9, 63.8, 63.7, 63.6, 63.5],
+      "respirationRateSeries": [13.8, 13.9, 13.8, 13.7, 13.8],
+      "bodyMovementSeries": [0.10, 0.08, 0.07, 0.06, 0.07],
+      "spo2Series": [97.0, 97.1, 97.0, 97.0, 97.1]
+    }
+  ]
+}

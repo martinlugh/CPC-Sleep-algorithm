@@ -1,0 +1,59 @@
+{
+  "analysisId": "analysis-20260410-001",
+  "userId": "user-001",
+  "analysisStatus": "COMPLETED",
+  "analyzedAt": "2026-04-17T10:15:30+00:00",
+  "sleepStageTimeline": [
+    {
+      "segmentId": "seg-1",
+      "stageStartTime": "2026-04-10T22:00:00+08:00",
+      "stageEndTime": "2026-04-10T22:00:30+08:00",
+      "sleepStage": "LIGHT",
+      "stageConfidence": 0.78
+    },
+    {
+      "segmentId": "seg-2",
+      "stageStartTime": "2026-04-10T22:00:30+08:00",
+      "stageEndTime": "2026-04-10T22:01:00+08:00",
+      "sleepStage": "DEEP",
+      "stageConfidence": 0.82
+    }
+  ],
+  "sleepSegmentAnalysisResults": [
+    {
+      "segmentId": "seg-1",
+      "predictedSleepStage": "LIGHT",
+      "stageConfidence": 0.78,
+      "averageHeartRate": 64.14,
+      "averageRespirationRate": 13.96,
+      "averageBodyMovement": 0.13,
+      "averageSpo2": 97.0,
+      "remark": "CPC[hfc=0.0021,lfc=0.0015,ratio=1.3920] SampEn=1.1023 SD1=28.4312 SD2=65.9921"
+    },
+    {
+      "segmentId": "seg-2",
+      "predictedSleepStage": "DEEP",
+      "stageConfidence": 0.82,
+      "averageHeartRate": 63.7,
+      "averageRespirationRate": 13.8,
+      "averageBodyMovement": 0.08,
+      "averageSpo2": 97.04,
+      "remark": "CPC[hfc=0.0028,lfc=0.0010,ratio=2.7400] SampEn=0.9320 SD1=36.5521 SD2=61.0033"
+    }
+  ],
+  "dominantSleepStage": "DEEP",
+  "totalSleepMinutes": 1.0,
+  "deepSleepMinutes": 0.5,
+  "lightSleepMinutes": 0.5,
+  "remSleepMinutes": 0.0,
+  "awakeMinutes": 0.0,
+  "sleepLatencyMinutes": 0.0,
+  "sleepOnsetTime": "2026-04-10T22:00:00+08:00",
+  "finalWakeTime": null,
+  "awakeningCount": 0,
+  "sleepScore": 84,
+  "sleepQualityScore": 84,
+  "nightlyRecoveryScore": 65,
+  "nightlyFatigueScore": 18,
+  "message": "分析完成，已输出分期时间轴与睡眠评分。"
+}
