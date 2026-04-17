@@ -94,9 +94,9 @@ class SleepDetectionAndAggregationTest {
         List<SleepSegmentAnalysisResult> list = new ArrayList<>();
         LocalDateTime t = LocalDateTime.of(2026, 4, 2, 12, 0);
         SleepStage[] stages = {
-                SleepStage.LIGHT, SleepStage.LIGHT, SleepStage.REM,
+                SleepStage.LIGHT, SleepStage.LIGHT, SleepStage.REM, SleepStage.LIGHT,
                 SleepStage.WAKE, SleepStage.WAKE,
-                SleepStage.LIGHT, SleepStage.DEEP, SleepStage.LIGHT
+                SleepStage.LIGHT, SleepStage.DEEP, SleepStage.LIGHT, SleepStage.LIGHT
         };
         for (SleepStage stage : stages) {
             SleepSegmentAnalysisResult r = new SleepSegmentAnalysisResult();

@@ -1,5 +1,6 @@
 package com.sleep.platform.controller;
 
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sleep.platform.domain.request.SleepAnalysisRequest;
 import com.sleep.platform.domain.request.SleepConfigUpdateRequest;
@@ -7,12 +8,22 @@ import com.sleep.platform.domain.request.SleepReplayRequest;
 import com.sleep.platform.domain.response.SleepAnalysisResponse;
 import com.sleep.platform.domain.response.SleepConfigResponse;
 import com.sleep.platform.domain.response.SleepReplayResponse;
+import com.sleep.platform.mapper.DaytimeNapResultMapper;
+import com.sleep.platform.mapper.SleepAlgorithmConfigMapper;
+import com.sleep.platform.mapper.SleepAnalysisReplayTaskMapper;
+import com.sleep.platform.mapper.SleepAnalysisResultMapper;
+import com.sleep.platform.mapper.SleepRawMotionSegmentMapper;
+import com.sleep.platform.mapper.SleepRawPhysiologicalSegmentMapper;
+import com.sleep.platform.mapper.SleepRawSessionMapper;
+import com.sleep.platform.mapper.SleepSegmentResultMapper;
+import com.sleep.platform.mapper.SleepUserBaselineMapper;
 import com.sleep.platform.service.SleepAnalysisService;
 import com.sleep.platform.service.SleepConfigService;
 import com.sleep.platform.service.SleepReplayService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -22,7 +33,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = {SleepAnalysisController.class, SleepConfigController.class, SleepReplayController.class})
+@WebMvcTest(
+        controllers = {SleepAnalysisController.class, SleepConfigController.class, SleepReplayController.class},
+        excludeAutoConfiguration = {DataSourceAutoConfiguration.class, MybatisPlusAutoConfiguration.class}
+)
 class SleepControllerTest {
 
     @Autowired
@@ -37,6 +51,25 @@ class SleepControllerTest {
     private SleepConfigService sleepConfigService;
     @MockBean
     private SleepReplayService sleepReplayService;
+
+    @MockBean
+    private DaytimeNapResultMapper daytimeNapResultMapper;
+    @MockBean
+    private SleepAlgorithmConfigMapper sleepAlgorithmConfigMapper;
+    @MockBean
+    private SleepAnalysisReplayTaskMapper sleepAnalysisReplayTaskMapper;
+    @MockBean
+    private SleepAnalysisResultMapper sleepAnalysisResultMapper;
+    @MockBean
+    private SleepRawMotionSegmentMapper sleepRawMotionSegmentMapper;
+    @MockBean
+    private SleepRawPhysiologicalSegmentMapper sleepRawPhysiologicalSegmentMapper;
+    @MockBean
+    private SleepRawSessionMapper sleepRawSessionMapper;
+    @MockBean
+    private SleepSegmentResultMapper sleepSegmentResultMapper;
+    @MockBean
+    private SleepUserBaselineMapper sleepUserBaselineMapper;
 
     @Test
     void shouldCallAnalyzeApi() throws Exception {
