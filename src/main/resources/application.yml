@@ -1,0 +1,50 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: cpc-sleep-algorithm
+  datasource:
+    url: jdbc:mysql://localhost:3306/cpc_sleep_algorithm?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    default-property-inclusion: non_null
+    time-zone: UTC
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID
+
+sleep:
+  analysis:
+    current-model-version: V1.0.0
+    current-rule-version: R1.0.0
+    min-valid-rri-count: 120
+    max-allowed-missing-rate: 0.2
+    wake-step-threshold: 30
+    sleep-onset-max-aligned-step-threshold: 10
+    wake-up-aligned-step-threshold: 25
+    deep-hfc-lfc-ratio-threshold: 1.2
+    rem-sd2-sd1-ratio-threshold: 2.0
+    deep-sample-entropy-upper-threshold: 1.1
+    rem-sample-entropy-lower-threshold: 1.3
+    hysteresis-required-segments: 2
+    sleep-onset-required-segments: 3
+    wake-up-required-segments: 3
+    sleep-onset-heart-rate-delta-threshold: -5.0
+    wake-up-heart-rate-delta-threshold: 6.0
+    min-stable-sleep-minutes-for-onset: 15
+    min-stable-wake-minutes-for-wake-up: 15
+    daytime-nap-min-minutes: 20
+    daytime-nap-max-aligned-step-threshold: 8
+    daytime-nap-required-segments: 2
+    daytime-nap-merge-gap-minutes: 15
+    motion-alignment-lookback-minutes: 8
+    motion-alignment-lookahead-minutes: 8
+    low-alignment-confidence-motion-weight: 0.5
