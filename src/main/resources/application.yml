@@ -25,7 +25,7 @@ sleep:
   analysis:
     current-model-version: V1.0.0
     current-rule-version: R1.0.0
-    min-valid-rri-count: 120
+    min-valid-rri-count: 20
     max-allowed-missing-rate: 0.2
     wake-step-threshold: 30
     sleep-onset-max-aligned-step-threshold: 10
