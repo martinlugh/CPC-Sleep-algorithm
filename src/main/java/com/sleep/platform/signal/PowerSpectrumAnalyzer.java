@@ -1,5 +1,6 @@
 package com.sleep.platform.signal;
 
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -34,39 +35,12 @@ public class PowerSpectrumAnalyzer {
         return new SpectrumBandResult(vlf, lf, hf, total, ratio);
     }
 
+    @Data
     public static class SpectrumBandResult {
         private final double vlfcPower;
         private final double lfcPower;
         private final double hfcPower;
         private final double totalPower;
         private final double hfcLfcRatio;
-
-        public SpectrumBandResult(double vlfcPower, double lfcPower, double hfcPower, double totalPower, double hfcLfcRatio) {
-            this.vlfcPower = vlfcPower;
-            this.lfcPower = lfcPower;
-            this.hfcPower = hfcPower;
-            this.totalPower = totalPower;
-            this.hfcLfcRatio = hfcLfcRatio;
-        }
-
-        public double getVlfcPower() {
-            return vlfcPower;
-        }
-
-        public double getLfcPower() {
-            return lfcPower;
-        }
-
-        public double getHfcPower() {
-            return hfcPower;
-        }
-
-        public double getTotalPower() {
-            return totalPower;
-        }
-
-        public double getHfcLfcRatio() {
-            return hfcLfcRatio;
-        }
     }
 }

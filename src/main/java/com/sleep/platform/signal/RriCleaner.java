@@ -1,5 +1,6 @@
 package com.sleep.platform.signal;
 
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -54,33 +55,11 @@ public class RriCleaner {
         return output;
     }
 
+    @Data
     public static class CleaningResult {
         private final double[] rriMsArray;
         private final int rawCount;
         private final int cleanedCount;
         private final double abnormalRatio;
-
-        public CleaningResult(double[] rriMsArray, int rawCount, int cleanedCount, double abnormalRatio) {
-            this.rriMsArray = rriMsArray;
-            this.rawCount = rawCount;
-            this.cleanedCount = cleanedCount;
-            this.abnormalRatio = abnormalRatio;
-        }
-
-        public double[] getRriMsArray() {
-            return rriMsArray;
-        }
-
-        public int getRawCount() {
-            return rawCount;
-        }
-
-        public int getCleanedCount() {
-            return cleanedCount;
-        }
-
-        public double getAbnormalRatio() {
-            return abnormalRatio;
-        }
     }
 }
