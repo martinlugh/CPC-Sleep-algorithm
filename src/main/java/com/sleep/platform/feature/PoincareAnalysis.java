@@ -1,6 +1,5 @@
 package com.sleep.platform.feature;
 
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,10 +39,27 @@ public class PoincareAnalysis {
         return Math.sqrt(sum / (arr.length - 1));
     }
 
-    @Data
     public static class PoincareResult {
         private final double sd1Ms;
         private final double sd2Ms;
         private final double sd2Sd1Ratio;
+
+        public PoincareResult(double sd1Ms, double sd2Ms, double sd2Sd1Ratio) {
+            this.sd1Ms = sd1Ms;
+            this.sd2Ms = sd2Ms;
+            this.sd2Sd1Ratio = sd2Sd1Ratio;
+        }
+
+        public double getSd1Ms() {
+            return sd1Ms;
+        }
+
+        public double getSd2Ms() {
+            return sd2Ms;
+        }
+
+        public double getSd2Sd1Ratio() {
+            return sd2Sd1Ratio;
+        }
     }
 }

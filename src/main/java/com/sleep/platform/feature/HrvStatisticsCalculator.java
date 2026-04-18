@@ -1,6 +1,5 @@
 package com.sleep.platform.feature;
 
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -80,7 +79,6 @@ public class HrvStatisticsCalculator {
         return min;
     }
 
-    @Data
     public static class HrvStatistics {
         private final double meanNnMs;
         private final double sdnnMs;
@@ -88,5 +86,38 @@ public class HrvStatisticsCalculator {
         private final double pnn50;
         private final double meanHeartRateBpm;
         private final double rriRangeMs;
+
+        public HrvStatistics(double meanNnMs, double sdnnMs, double rmssdMs, double pnn50, double meanHeartRateBpm, double rriRangeMs) {
+            this.meanNnMs = meanNnMs;
+            this.sdnnMs = sdnnMs;
+            this.rmssdMs = rmssdMs;
+            this.pnn50 = pnn50;
+            this.meanHeartRateBpm = meanHeartRateBpm;
+            this.rriRangeMs = rriRangeMs;
+        }
+
+        public double getMeanNnMs() {
+            return meanNnMs;
+        }
+
+        public double getSdnnMs() {
+            return sdnnMs;
+        }
+
+        public double getRmssdMs() {
+            return rmssdMs;
+        }
+
+        public double getPnn50() {
+            return pnn50;
+        }
+
+        public double getMeanHeartRateBpm() {
+            return meanHeartRateBpm;
+        }
+
+        public double getRriRangeMs() {
+            return rriRangeMs;
+        }
     }
 }

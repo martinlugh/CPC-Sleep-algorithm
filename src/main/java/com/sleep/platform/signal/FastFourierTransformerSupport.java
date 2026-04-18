@@ -1,6 +1,5 @@
 package com.sleep.platform.signal;
 
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -65,9 +64,21 @@ public class FastFourierTransformerSupport {
         }
     }
 
-    @Data
     public static class FftResult {
         private final double[] real;
         private final double[] imag;
+
+        public FftResult(double[] real, double[] imag) {
+            this.real = real;
+            this.imag = imag;
+        }
+
+        public double[] getReal() {
+            return real;
+        }
+
+        public double[] getImag() {
+            return imag;
+        }
     }
 }
