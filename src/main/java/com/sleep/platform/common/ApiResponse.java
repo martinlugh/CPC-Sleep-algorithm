@@ -1,11 +1,7 @@
 package com.sleep.platform.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
 
@@ -13,26 +9,37 @@ public class ApiResponse<T> {
     private String message;
     private T data;
 
+    public ApiResponse() {}
+
+    public Integer getCode() { return code; }
+    public void setCode(Integer code) { this.code = code; }
+
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
+
+    public T getData() { return data; }
+    public void setData(T data) { this.data = data; }
+
     public static <T> ApiResponse<T> success(T data) {
         ApiResponse<T> r = new ApiResponse<>();
-        r.setCode(0);
-        r.setMessage("成功");
-        r.setData(data);
+        r.code = 0;
+        r.message = "成功";
+        r.data = data;
         return r;
     }
 
     public static <T> ApiResponse<T> success(String message, T data) {
         ApiResponse<T> r = new ApiResponse<>();
-        r.setCode(0);
-        r.setMessage(message);
-        r.setData(data);
+        r.code = 0;
+        r.message = message;
+        r.data = data;
         return r;
     }
 
     public static <T> ApiResponse<T> failure(Integer code, String message) {
         ApiResponse<T> r = new ApiResponse<>();
-        r.setCode(code);
-        r.setMessage(message);
+        r.code = code;
+        r.message = message;
         return r;
     }
 }
