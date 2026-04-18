@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class SampleEntropyCalculator {
 
     public double calculate(double[] series) {
-        if (series == null || series.length < 10) {
+        if (series == null || series.length < 20) {
             return 0.0;
         }
         int m = 2;
