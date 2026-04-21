@@ -214,8 +214,14 @@ public class SleepAnalysisServiceImpl implements SleepAnalysisService {
         entity.setDaytimeNapTotalMinutes(daily.getDaytimeNapTotalMinutes());
         entity.setDaytimeNapCount(daily.getDaytimeNapCount());
         entity.setScoreExplanationJson(writeJson(score.getScoreExplanation()));
-        entity.setSleepOnsetReasonJson(writeJson(Map.of("tags", onset.getSleepOnsetReasonTags(), "text", onset.getSleepOnsetExplainText())));
-        entity.setWakeUpReasonJson(writeJson(Map.of("tags", wake.getWakeUpReasonTags(), "text", wake.getWakeUpExplainText())));
+        Map<String, Object> onsetJsonMap = new HashMap<>();
+        onsetJsonMap.put("tags", onset.getSleepOnsetReasonTags());
+        onsetJsonMap.put("text", onset.getSleepOnsetExplainText());
+        entity.setSleepOnsetReasonJson(writeJson(onsetJsonMap));
+        Map<String, Object> wakeJsonMap = new HashMap<>();
+        wakeJsonMap.put("tags", wake.getWakeUpReasonTags());
+        wakeJsonMap.put("text", wake.getWakeUpExplainText());
+        entity.setWakeUpReasonJson(writeJson(wakeJsonMap));
         entity.setDaytimeNapSummaryJson(writeJson(buildNapSummary(napResultList)));
         entity.setAlignmentExplanationJson(writeJson(buildAlignmentExplanation(segmentResultList)));
         sleepAnalysisResultMapper.insert(entity);
